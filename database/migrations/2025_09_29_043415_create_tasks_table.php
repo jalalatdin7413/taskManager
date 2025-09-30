@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->restrictOnDelete();
             $table->timestamp('deadline')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

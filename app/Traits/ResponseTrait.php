@@ -6,29 +6,29 @@ use Illuminate\Http\JsonResponse;
 
 trait ResponseTrait
 {
-    public function success(string $message, array $data = [], int $status = 200): JsonResponse
+    /**
+     * Summary of toResponse
+     * @param int $code
+     * @param mixed $message
+     * @param object|array|null $data
+     * @param mixed $ttl
+     * @return JsonResponse
+     */
+    public static function toResponse(int $code = 200, ?string $message = null, object|array|null $data = null, ?int $ttl = null): JsonResponse
     {
-        return response()->json([
-            'status' => true,
+        $responseData = [
+            'status' => $code,
             'message' => $message,
-            'data' => $data,
-        ], $status);
-    }
+        ];
 
-    public function error(string $message, int $status = 400): JsonResponse
-    {
-        return response()->json([
-            'status' => false,
-            'message' => $message,
-        ], $status);
-    }
+        if ($data) {
+            $responseData['data'] = $data;
+        }
 
-    public static function toResponse(string $message, array $data = [], int $status = 200): JsonResponse
-    {
-        return response()->json([
-            'status' => $status >= 200 && $status < 300,
-            'message' => $message,
-            'data' => $data,
-        ], $status);
+        if ($ttl) {
+            $responseData['ttl'] = $ttl;
+        }
+
+        return response()->json($responseData, $code);
     }
 }
