@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Task;
 
 use App\Actions\v1\Task\CreateAction;
 use App\Actions\v1\Task\DeleteAction;
+use App\Actions\v1\Task\FilterAction;
 use App\Actions\v1\Task\IndexAction;
 use App\Actions\v1\Task\ShowAction;
 use App\Actions\v1\Task\UpdateAction;
 use App\Dto\v1\Task\CreateDto;
+use App\Dto\v1\Task\FilterTaskDto;
 use App\Dto\v1\Task\UpdateDto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\Task\CreateRequest;
+use App\Http\Requests\v1\Task\FilterTaskRequest;
 use App\Http\Requests\v1\Task\UpdateRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -70,5 +73,16 @@ class TaskController extends Controller
     public function delete(int $id, DeleteAction $action): JsonResponse
     {
         return $action($id);
+    }
+
+    /**
+     * Summary of filter
+     * @param \App\Http\Requests\v1\Task\FilterTaskRequest $request
+     * @param \App\Actions\v1\Task\FilterAction $action
+     * @return JsonResponse
+     */
+    public function filter(FilterTaskRequest $request, FilterAction $action): JsonResponse
+    {
+        return $action(FilterTaskDto::from($request));
     }
 }
