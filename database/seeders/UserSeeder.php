@@ -20,5 +20,13 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        User::create([
+            'name' => 'James Bond',
+            'email' => 'jamesbond@gmail.com',
+            'password' => Hash::make('secret007'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
