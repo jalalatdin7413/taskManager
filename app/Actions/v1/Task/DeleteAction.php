@@ -8,7 +8,6 @@ use App\Traits\ResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 
-
 class DeleteAction
 {
     use ResponseTrait;

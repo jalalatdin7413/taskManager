@@ -2,8 +2,8 @@
 
 namespace App\Routes\v1;
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Task\TaskController;
+use App\Http\Controllers\v1\Auth\AuthController;
+use App\Http\Controllers\v1\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::pattern('id', '\d+');

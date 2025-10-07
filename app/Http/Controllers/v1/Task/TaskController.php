@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Task;
+namespace App\Http\Controllers\v1\Task;
 
 use App\Actions\v1\Task\CreateAction;
 use App\Actions\v1\Task\DeleteAction;

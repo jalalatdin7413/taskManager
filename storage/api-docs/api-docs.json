@@ -1,0 +1,475 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Task Manager Documentation",
+        "description": "Task Manager Project Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/v1": {
+            "servers": [
+                {
+                    "url": "http://localhost:8000/api",
+                    "description": "local server"
+                }
+            ]
+        },
+        "/api/v1/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register new user",
+                "operationId": "df4884dcb4235a2f91bcdaf2372b0e48",
+                "requestBody": {
+                    "description": "User registration data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Jony Deep"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "jony@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User Registered successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "a3b82d878e943f6580fefd861eb80a84",
+                "requestBody": {
+                    "description": "User login data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "jony@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "operationId": "01cdde610f7b2971063da221f57fd04f",
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get all tasks",
+                "description": "Retrieves a list of all tasks",
+                "operationId": "ee844c17d17e5aa3dfa98006ed99c6b6",
+                "responses": {
+                    "200": {
+                        "description": "Succesfully response"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/show/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get a specific task",
+                "description": "Retrieves a specific task by its ID",
+                "operationId": "0a6d0471c022262ed92274392b8040ad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the task to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/create": {
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Create a new task",
+                "description": "Creates a new task",
+                "operationId": "852b347eb802ab1dc65c9ee59b351e6a",
+                "requestBody": {
+                    "description": "Task creation payload",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "deadline",
+                                    "priority"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Finish report"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Complete the quarterly financial report"
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-10-10"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "new"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task successfully created"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/update/{id}": {
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Update a specific task",
+                "description": "Updates a specific task by its ID",
+                "operationId": "35ec24429713d28a3373b15f34038b56",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the task to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Task update payload",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "deadline",
+                                    "priority"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Finish report"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Complete the quarterly financial report"
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-10-10"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "in_progress"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task successfully updated"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "User taskdi oshiredi",
+                "operationId": "2785db75bf25b510851bb7464cd667a2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task successfully deleted"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/tasks/filter": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Tasklardi filterlew",
+                "operationId": "d91a6ba563367501c854c79bb6c6904c",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Task statusi (new, in_progress, done)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "in_progress"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Title yamasa description boyinsha search",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Barliq"
+                        }
+                    },
+                    {
+                        "name": "deadline",
+                        "in": "query",
+                        "description": "Taskdin' sanesi (Y-m-d format)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2025-10-17"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Filtered tasks"
+                    },
+                    "404": {
+                        "description": "Search info not found"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Use the Token format: Bearer {your_token}",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Task",
+            "description": "Task"
+        }
+    ]
+}
