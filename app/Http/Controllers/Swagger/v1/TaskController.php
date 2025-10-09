@@ -103,7 +103,7 @@ class TaskController extends Controller
     #[OA\Delete(
         path: '/api/v1/tasks/delete/{id}',
         tags: ['Task'],
-        summary: 'User taskdi oshiredi',
+        summary: 'User deleted task',
         security: [['sanctum' => []]],
         parameters: [
             new OA\Parameter(
@@ -127,7 +127,7 @@ class TaskController extends Controller
     #[OA\Get(
         path: '/api/v1/tasks/filter',
         tags: ['Task'],
-        summary: 'Tasklardi filterlew',
+        summary: 'Filtered tasks',
         security: [['sanctum' => []]],
         parameters: [
             new OA\Parameter(
